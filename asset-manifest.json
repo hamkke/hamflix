@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/hamflix/static/js/main.6007716b.js",
+    "index.html": "/hamflix/index.html",
+    "main.6007716b.js.map": "/hamflix/static/js/main.6007716b.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.6007716b.js"
+  ]
+}
