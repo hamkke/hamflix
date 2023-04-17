@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useRecoilValue } from "recoil";
+import { toggleTheme } from "atom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Header from "components/Header";
+import Home from "routes/Home";
+import Tv from "routes/Tv";
+import Search from "routes/Search";
 
-function App() {
+import { ThemeProvider } from "styled-components";
+import { GlobalStyle } from "GlobalStyle";
+import { darkTheme, lightTheme } from "./theme";
+
+const App = () => {
+  const isDark = useRecoilValue(toggleTheme);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+      <GlobalStyle />
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />}>
+            <Route path="movies/:MovieId" />
+          </Route>
+          <Route path="tv" element={<Tv />}>
+            <Route path=":tvId" />
+          </Route>
+          <Route path="search" element={<Search />}>
+            <Route path=":keyword" />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
